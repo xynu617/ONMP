@@ -2,8 +2,8 @@
 # 一键安装onmp
 # @Author: xzhih
 # @Date:   2018-03-19 04:44:09
-# @Last Modified by:   xzhih
-# @Last Modified time: 2018-10-08 01:51:35
+# @Last Modified by:   xynu617
+# @Last Modified time: 2020-02-09 22:15:35
 # sh -c "$(curl -kfsSL http://192.168.4.126:4000/oneclick.sh)"
 
 cat << EOF
@@ -25,7 +25,7 @@ ONMP 是一个 web 环境快速安装脚本，适用于安装了
 Entware 的路由器，目前已经在 Padavan、
 LEDE（openwrt）、梅林上测试成功。
 
-项目地址：https://github.com/xzhih/ONMP
+项目地址：https://github.com/xynu617/ONMP
 
 更多使用教程：https://zhih.me
 
@@ -37,7 +37,7 @@ Install()
 	mkdir -p /opt/onmp
 
     # 获取onmp脚本
-    curl -kfsSL https://raw.githubusercontent.com/xzhih/ONMP/master/onmp.sh > /opt/onmp/onmp.sh
+    curl -kfsSL https://raw.githubusercontent.com/xynu617/ONMP/master/onmp.sh > /opt/onmp/onmp.sh
     # curl -kfsSL http://192.168.4.126:4000/onmp.sh > /opt/onmp/onmp.sh
     chmod +x /opt/onmp/onmp.sh
 
@@ -50,7 +50,7 @@ Install()
 Updata()
 {
 	rm -rf /opt/onmp/onmp.sh
-	curl -kfsSL https://raw.githubusercontent.com/xzhih/ONMP/master/onmp.sh > /opt/onmp/onmp.sh
+	curl -kfsSL https://raw.githubusercontent.com/xynu617/ONMP/master/onmp.sh > /opt/onmp/onmp.sh
 	# curl -kfsSL http://192.168.4.126:4000/onmp.sh > /opt/onmp/onmp.sh
 	chmod +x /opt/onmp/onmp.sh
 	/opt/onmp/onmp.sh renewsh > /dev/null 2>&1
