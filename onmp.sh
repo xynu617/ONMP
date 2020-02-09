@@ -1,13 +1,13 @@
 #!/bin/sh
 # @Author: xzhih
 # @Date:   2017-07-29 06:10:54
-# @Last Modified by:   Fangshing87
-# @Last Modified time: 2019-06-09 11:39:26
+# @Last Modified by:   xynu617
+# @Last Modified time: 2020-02-09 22:09:26
 
 # 软件包列表
-pkglist="wget unzip grep sed tar ca-certificates coreutils-whoami php7 php7-cgi php7-cli php7-fastcgi php7-fpm php7-mod-mysqli php7-mod-pdo php7-mod-pdo-mysql nginx-extras mariadb-server mariadb-server-extra mariadb-client mariadb-client-extra"
+pkglist="wget unzip grep sed tar ca-certificates coreutils-whoami php7 php7-cgi php7-cli php7-fastcgi php7-fpm php7-mod-mysqli php7-mod-pdo php7-mod-pdo-mysql nginx-extras mariadb-server mariadb-client mariadb-client-extra"
 
-phpmod="php7-mod-calendar php7-mod-ctype php7-mod-curl php7-mod-dom php7-mod-exif php7-mod-fileinfo php7-mod-ftp php7-mod-gd php7-mod-gettext php7-mod-gmp php7-mod-hash php7-mod-iconv php7-mod-intl php7-mod-json php7-mod-ldap php7-mod-session php7-mod-mbstring php7-mod-opcache php7-mod-openssl php7-mod-pcntl php7-mod-phar php7-pecl-redis php7-mod-session php7-mod-shmop php7-mod-simplexml php7-mod-snmp php7-mod-soap php7-mod-sockets php7-mod-sqlite3 php7-mod-sysvmsg php7-mod-sysvsem php7-mod-sysvshm php7-mod-tokenizer php7-mod-xml php7-mod-xmlreader php7-mod-xmlwriter php7-mod-zip php7-pecl-dio php7-pecl-http php7-pecl-libevent php7-pecl-propro php7-pecl-raphf redis snmpd snmp-mibs snmp-utils zoneinfo-core zoneinfo-asia"
+phpmod="php7-mod-calendar php7-mod-ctype php7-mod-curl php7-mod-dom php7-mod-exif php7-mod-fileinfo php7-mod-ftp php7-mod-gd php7-mod-gettext php7-mod-gmp php7-mod-hash php7-mod-iconv php7-mod-intl php7-mod-json php7-mod-ldap php7-mod-session php7-mod-mbstring php7-mod-opcache php7-mod-openssl php7-mod-pcntl php7-mod-phar php7-mod-session php7-mod-shmop php7-mod-simplexml php7-mod-snmp php7-mod-soap php7-mod-sockets php7-mod-sqlite3 php7-mod-sysvmsg php7-mod-sysvsem php7-mod-sysvshm php7-mod-tokenizer php7-mod-xml php7-mod-xmlreader php7-mod-xmlwriter php7-mod-zip php7-pecl-dio php7-pecl-http php7-pecl-libevent php7-pecl-propro php7-pecl-raphf redis snmpd snmp-mibs snmp-utils zoneinfo-core zoneinfo-asia"
 
 # 后续可能增加的包(缺少源支持)
 # php7-mod-imagick imagemagick imagemagick-jpeg imagemagick-png imagemagick-tiff imagemagick-tools
@@ -428,7 +428,7 @@ OOO
 init_sql()
 {
     get_env
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     sleep 10
     killall mysqld > /dev/null 2>&1
     rm -rf /opt/mysql
@@ -446,7 +446,7 @@ user               = theOne
 socket             = /opt/var/run/mysqld.sock
 pid-file           = /opt/var/run/mysqld.pid
 basedir            = /opt
-lc_messages_dir    = /opt/share/mariadb
+lc_messages_dir    = /opt/share/mysql
 lc_messages        = en_US
 innodb_use_native_aio = 0
 datadir            = /opt/var/mysql/
@@ -454,7 +454,7 @@ tmpdir             = /opt/tmp/
 
 skip-external-locking
 
-bind-address       = 127.0.0.1
+bind-address       = 0.0.0.0
 
 key_buffer_size    = 24M
 max_allowed_packet = 24M
@@ -488,7 +488,7 @@ echo -e "\n正在初始化数据库，请稍等1分钟"
 sleep 20
 
 # 初次启动MySQL
-/opt/etc/init.d/S70mysqld start
+/opt/etc/init.d/S70mariadbd start
 sleep 60
 
 # 设置数据库密码
@@ -542,7 +542,7 @@ PHPFPM
 ############# 用户设置数据库密码 ############
 set_passwd()
 {
-    /opt/etc/init.d/S70mysqld start
+    /opt/etc/init.d/S70mariadbd start
     sleep 3
     echo -e "\033[41;37m 初始密码：123456 \033[0m"
     mysqladmin -u root -p password
@@ -552,7 +552,7 @@ set_passwd()
 ################ 卸载onmp ###############
 remove_onmp()
 {
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     /opt/etc/init.d/S70redis stop > /dev/null 2>&1
@@ -606,12 +606,12 @@ vhost_list()
 
 onmp_restart()
 {
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     killall -9 nginx mysqld php-fpm > /dev/null 2>&1
     sleep 3
-    /opt/etc/init.d/S70mysqld start > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd start > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm start > /dev/null 2>&1
     /opt/etc/init.d/S80nginx start > /dev/null 2>&1
     sleep 3
@@ -649,7 +649,7 @@ case $1 in
     stop )
     echo "onmp正在停止"
     logger -t "【ONMP】" "正在停止"
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     echo "onmp已停止"
@@ -664,9 +664,9 @@ case $1 in
 
     mysql )
     case $2 in
-        start ) /opt/etc/init.d/S70mysqld start;;
-        stop ) /opt/etc/init.d/S70mysqld stop;;
-        restart ) /opt/etc/init.d/S70mysqld restart;;
+        start ) /opt/etc/init.d/S70mariadbd start;;
+        stop ) /opt/etc/init.d/S70mariadbd stop;;
+        restart ) /opt/etc/init.d/S70mariadbd restart;;
         * ) echo "onmp mysqld start|restart|stop";;
     esac
     ;;
