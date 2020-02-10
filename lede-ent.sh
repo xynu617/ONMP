@@ -37,7 +37,7 @@ x86_64)
 INST_URL="http://bin.entware.net/x64-k3.2/installer/generic.sh"
 ;;
 i686)
-INST_URL="http://bin.entware.net/x86-k2.6/installer/generic.sh"
+INST_URL="http://pkg.entware.net/binaries/x86-32/installer/entware_install.sh"
 ;;
 *)
 echo "不好意思，你的平台似乎无法安装 Entware"
