@@ -16,14 +16,14 @@ Entware 是一个适用于嵌入式系统的软件包库，使用 opkg 包管理
 运行命令，选择要安装到的分区，等待安装完成
 
 ```shell 
-$ sh -c "$(curl -kfsSL https://raw.githubusercontent.com/xzhih/ONMP/master/lede-ent.sh)"
+$ sh -c "$(curl -kfsSL https://raw.githubusercontent.com/xynu617/ONMP/master/lede-ent.sh)"
 ```
 
 如果提示找不到 curl 命令，可以用下面这个方法
 
 ```shell
 $ cd /tmp
-$ wget -c -O https://raw.githubusercontent.com/xzhih/ONMP/master/lede-ent.sh
+$ wget -c -O https://raw.githubusercontent.com/xynu617/ONMP/master/lede-ent.sh
 $ chmod +x ./lede-ent.sh
 $ ./lede-ent.sh
 ```
