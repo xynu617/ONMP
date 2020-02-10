@@ -113,7 +113,7 @@ $ wget -O - http://bin.entware.net/x64-k3.2/installer/generic.sh | /bin/sh
 - x86-32
 
 ```shell
-$ wget -O - http://http://bin.entware.net/x86-k2.6/installer/generic.sh | /bin/sh
+$ wget -O - http://bin.entware.net/x86-k2.6/installer/generic.sh | /bin/sh
 ```
 
 - MIPS
