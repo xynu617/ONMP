@@ -1,8 +1,8 @@
 #!/bin/sh
 # @Author: xzhih
 # @Date:   2017-07-29 06:10:54
-# @Last Modified by:   xynu617
-# @Last Modified time: 2020-02-09 22:09:26
+# @Last Modified by:   Fangshing87
+# @Last Modified time: 2019-06-09 11:39:26
 
 # 软件包列表
 pkglist="wget unzip grep sed tar ca-certificates coreutils-whoami php7 php7-cgi php7-cli php7-fastcgi php7-fpm php7-mod-mysqli php7-mod-pdo php7-mod-pdo-mysql nginx-extras mariadb-server mariadb-server-extra mariadb-client mariadb-client-extra"
@@ -174,13 +174,11 @@ cat > "/opt/etc/nginx/nginx.conf" <<-\EOF
 user theOne root;
 pid /opt/var/run/nginx.pid;
 worker_processes auto;
-
 events {
     use epoll;
     multi_accept on;
     worker_connections 1024;
 }
-
 http {
     charset utf-8;
     include mime.types;
@@ -202,7 +200,6 @@ http {
     gzip_comp_level 2;
     gzip_disable "msie6";
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript image/svg+xml;
-
     include /opt/etc/nginx/vhost/*.conf;
 }
 EOF
@@ -235,7 +232,6 @@ add_header X-XSS-Protection "1; mode=block";
 add_header X-Robots-Tag none;
 add_header X-Download-Options noopen;
 add_header X-Permitted-Cross-Domain-Policies none;
-
 location = /robots.txt {
     allow all;
     log_not_found off;
@@ -247,7 +243,6 @@ location = /.well-known/carddav {
 location = /.well-known/caldav {
     return 301 $scheme://$host/remote.php/dav;
 }
-
 fastcgi_buffers 64 4K;
 gzip on;
 gzip_vary on;
@@ -255,7 +250,6 @@ gzip_comp_level 4;
 gzip_min_length 256;
 gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
 gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
-
 location / {
     rewrite ^ /index.php$request_uri;
 }
@@ -265,7 +259,6 @@ location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
 location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) {
     deny all;
 }
-
 location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+)\.php(?:$|/) {
     fastcgi_split_path_info ^(.+?\.php)(/.*)$;
     include fastcgi_params;
@@ -277,12 +270,10 @@ location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updat
     fastcgi_intercept_errors on;
     fastcgi_request_buffering off;
 }
-
 location ~ ^/(?:updater|ocs-provider)(?:$|/) {
     try_files $uri/ =404;
     index index.php;
 }
-
 location ~ \.(?:css|js|woff|svg|gif)$ {
     try_files $uri /index.php$request_uri;
     add_header Cache-Control "public, max-age=15778463";
@@ -293,7 +284,6 @@ location ~ \.(?:css|js|woff|svg|gif)$ {
     add_header X-Permitted-Cross-Domain-Policies none;
     access_log off;
 }
-
 location ~ \.(?:png|html|ttf|ico|jpg|jpeg)$ {
     try_files $uri /index.php$request_uri;
     access_log off;
@@ -308,7 +298,6 @@ add_header X-XSS-Protection "1; mode=block";
 add_header X-Robots-Tag none;
 add_header X-Download-Options noopen;
 add_header X-Permitted-Cross-Domain-Policies none;
-
 location = /robots.txt {
     allow all;
     log_not_found off;
@@ -320,24 +309,20 @@ location = /.well-known/carddav {
 location = /.well-known/caldav {
     return 301 $scheme://$host/remote.php/dav;
 }
-
 gzip off;
 fastcgi_buffers 8 4K; 
 fastcgi_ignore_headers X-Accel-Buffering;
 error_page 403 /core/templates/403.php;
 error_page 404 /core/templates/404.php;
-
 location / {
     rewrite ^ /index.php$uri;
 }
-
 location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
     return 404;
 }
 location ~ ^/(?:\.|autotest|occ|issue|indie|db_|console) {
     return 404;
 }
-
 location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+|core/templates/40[34])\.php(?:$|/) {
     fastcgi_split_path_info ^(.+\.php)(/.*)$;
     include fastcgi_params;
@@ -351,12 +336,10 @@ location ~ ^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updat
     fastcgi_intercept_errors on;
     fastcgi_request_buffering on;
 }
-
 location ~ ^/(?:updater|ocs-provider)(?:$|/) {
     try_files $uri $uri/ =404;
     index index.php;
 }
-
 location ~ \.(?:css|js)$ {
     try_files $uri /index.php$uri$is_args$args;
     add_header Cache-Control "max-age=15778463";
@@ -368,7 +351,6 @@ location ~ \.(?:css|js)$ {
     add_header X-Permitted-Cross-Domain-Policies none;
     access_log off;
 }
-
 location ~ \.(?:svg|gif|png|html|ttf|woff|ico|jpg|jpeg|map)$ {
     add_header Cache-Control "public, max-age=7200";
     try_files $uri /index.php$uri$is_args$args;
@@ -396,11 +378,9 @@ location ~ ^/wp-content/uploads/.*\.php$ {
 location ~* /(?:uploads|files)/.*\.php$ {
     deny all;
 }
-
 location / {
     try_files $uri $uri/ /index.php?$args;
 }
-
 location ~ \.php$ {
     include fastcgi.conf;
     fastcgi_intercept_errors on;
@@ -408,7 +388,6 @@ location ~ \.php$ {
     fastcgi_buffers 16 16k;
     fastcgi_buffer_size 32k;
 }
-
 location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
     expires max;
     log_not_found off;
@@ -428,7 +407,7 @@ OOO
 init_sql()
 {
     get_env
-    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
     sleep 10
     killall mysqld > /dev/null 2>&1
     rm -rf /opt/mysql
@@ -440,38 +419,30 @@ cat > "/opt/etc/mysql/my.cnf" <<-\MMM
 [client-server]
 port               = 3306
 socket             = /opt/var/run/mysqld.sock
-
 [mysqld]
 user               = theOne
 socket             = /opt/var/run/mysqld.sock
 pid-file           = /opt/var/run/mysqld.pid
 basedir            = /opt
-lc_messages_dir    = /opt/share/mysql
+lc_messages_dir    = /opt/share/mariadb
 lc_messages        = en_US
 innodb_use_native_aio = 0
 datadir            = /opt/var/mysql/
 tmpdir             = /opt/tmp/
-
 skip-external-locking
-
-bind-address       = 0.0.0.0
-
+bind-address       = 127.0.0.1
 key_buffer_size    = 24M
 max_allowed_packet = 24M
 thread_stack       = 192K
 thread_cache_size  = 8
-
 [mysqldump]
 quick
 quote-names
 max_allowed_packet = 24M
-
 [mysql]
 #no-auto-rehash
-
 [isamchk]
 key_buffer_size    = 24M
-
 [mysqlhotcopy]
 interactive-timeout
 MMM
@@ -488,7 +459,7 @@ echo -e "\n正在初始化数据库，请稍等1分钟"
 sleep 20
 
 # 初次启动MySQL
-/opt/etc/init.d/S70mariadbd start
+/opt/etc/init.d/S70mysqld start
 sleep 60
 
 # 设置数据库密码
@@ -525,7 +496,6 @@ opcache.memory_consumption=128
 opcache.save_comments=1
 opcache.revalidate_freq=60
 opcache.fast_shutdown=1
-
 mysqli.default_socket=/opt/var/run/mysqld.sock
 pdo_mysql.default_socket=/opt/var/run/mysqld.sock
 PHPINI
@@ -542,7 +512,7 @@ PHPFPM
 ############# 用户设置数据库密码 ############
 set_passwd()
 {
-    /opt/etc/init.d/S70mariadbd start
+    /opt/etc/init.d/S70mysqld start
     sleep 3
     echo -e "\033[41;37m 初始密码：123456 \033[0m"
     mysqladmin -u root -p password
@@ -552,7 +522,7 @@ set_passwd()
 ################ 卸载onmp ###############
 remove_onmp()
 {
-    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     /opt/etc/init.d/S70redis stop > /dev/null 2>&1
@@ -583,13 +553,11 @@ rm -rf /opt/bin/onmp
 # 写入文件
 cat > "/opt/bin/onmp" <<-\EOF
 #!/bin/sh
-
 # 获取路由器IP
 localhost=$(ifconfig | grep "inet addr" | awk '{ print $2}' | awk -F: '{print $2}' | awk 'NR==1')
 if [[ ! -n "$localhost" ]]; then
     localhost="你的路由器IP"
 fi
-
 vhost_list()
 {
     echo "网站列表："
@@ -603,15 +571,14 @@ vhost_list()
     done
     echo "浏览器地址栏输入：$localhost:81 查看php探针"
 }
-
 onmp_restart()
 {
-    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     killall -9 nginx mysqld php-fpm > /dev/null 2>&1
     sleep 3
-    /opt/etc/init.d/S70mariadbd start > /dev/null 2>&1
+    /opt/etc/init.d/S70mysqld start > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm start > /dev/null 2>&1
     /opt/etc/init.d/S80nginx start > /dev/null 2>&1
     sleep 3
@@ -624,7 +591,6 @@ onmp_restart()
             num=`expr $num + 1`
         fi 
     done
-
     if [[ $num -gt 0 ]]; then
         echo "onmp启动失败"
         logger -t "【ONMP】" "启动失败"
@@ -634,43 +600,37 @@ onmp_restart()
         vhost_list
     fi
 }
-
 case $1 in
     open ) 
     /opt/onmp/onmp.sh
     ;;
-
     start )
     echo "onmp正在启动"
     logger -t "【ONMP】" "正在启动"
     onmp_restart
     ;;
-
     stop )
     echo "onmp正在停止"
     logger -t "【ONMP】" "正在停止"
-    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     echo "onmp已停止"
     logger -t "【ONMP】" "已停止"
     ;;
-
     restart )
     echo "onmp正在重启"
     logger -t "【ONMP】" "正在重启"
     onmp_restart
     ;;
-
     mysql )
     case $2 in
-        start ) /opt/etc/init.d/S70mariadbd start;;
-        stop ) /opt/etc/init.d/S70mariadbd stop;;
-        restart ) /opt/etc/init.d/S70mariadbd restart;;
+        start ) /opt/etc/init.d/S70mysqld start;;
+        stop ) /opt/etc/init.d/S70mysqld stop;;
+        restart ) /opt/etc/init.d/S70mysqld restart;;
         * ) echo "onmp mysqld start|restart|stop";;
     esac
     ;;
-
     php )
     case $2 in
         start ) /opt/etc/init.d/S79php7-fpm start;;
@@ -679,7 +639,6 @@ case $1 in
         * ) echo "onmp php start|restart|stop";;
     esac
     ;;
-
     nginx )
     case $2 in
         start ) /opt/etc/init.d/S80nginx start;;
@@ -688,7 +647,6 @@ case $1 in
         * ) echo "onmp nginx start|restart|stop";;
     esac
     ;;
-
     redis )
     case $2 in
         start ) /opt/etc/init.d/S70redis start;;
@@ -697,7 +655,6 @@ case $1 in
         * ) echo "onmp redis start|restart|stop";;
     esac
     ;;
-
     list )
     vhost_list
     ;;
@@ -707,12 +664,9 @@ cat << HHH
 =================================
  onmp 管理命令
  onmp open
-
  启动 停止 重启
  onmp start|stop|restart
-
  查看网站列表 onmp list
-
  Nginx 管理命令
  onmp nginx start|restart|stop
  MySQL 管理命令
@@ -733,12 +687,9 @@ cat << HHH
 =================================
  onmp 管理命令
  onmp open
-
  启动 停止 重启
  onmp start|stop|restart
-
  查看网站列表 onmp list
-
  Nginx 管理命令
  onmp nginx start|restart|stop
  MySQL 管理命令
@@ -1192,7 +1143,6 @@ cat << SWAP
 (1) 开启Swap
 (2) 关闭Swap
 (3) 删除Swap文件
-
 SWAP
 
 read -p "输入你的选择[1-3]: " input
@@ -1348,9 +1298,7 @@ cat << EOF
    \  \:\/:/     \  \:\        \  \:\        \  \:\    
     \  \::/       \  \:\        \  \:\        \  \:\   
      \__\/         \__\/         \__\/         \__\/   
-
 =======================================================
-
 (1) 安装ONMP
 (2) 卸载ONMP
 (3) 设置数据库密码
@@ -1362,7 +1310,6 @@ cat << EOF
 (9) 开启Swap
 (10) 开启 Redis
 (0) 退出
-
 EOF
 
 read -p "输入你的选择[0-9]: " input
