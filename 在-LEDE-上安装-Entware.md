@@ -165,7 +165,7 @@ $ df -h
 
 # opkg 更新数据
 $ opkg update
-Downloading http://pkg.entware.net/binaries/x86-64/Packages.gz # 默认从 entware 下载
+Downloading http://bin.entware.net/binaries/x86-64/Packages.gz # 默认从 entware 下载
 Updated list of available packages in /opt/var/opkg-lists/packages # 成功
 ```
 
