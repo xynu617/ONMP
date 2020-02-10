@@ -59,7 +59,7 @@ Entware-ng 是一个适用于嵌入式系统的软件包库，使用 opkg 包管
 一键命令，复制->粘贴->回车
 
 ```
- $ sh -c "$(curl -kfsSl https://raw.githubusercontent.com/xzhih/ONMP/master/oneclick.sh)"
+ $ sh -c "$(curl -kfsSl https://raw.githubusercontent.com/xynu617/ONMP/master/oneclick.sh)"
 ```
 
 一长串的复制如果出错，可以按照以下给出的命令，一步步进行安装
@@ -68,12 +68,11 @@ Entware-ng 是一个适用于嵌入式系统的软件包库，使用 opkg 包管
 # 进入 entware 挂载目录
  cd /opt && opkg install wget unzip 
 
-# 下载软件包
-wget --no-check-certificate -O /opt/onmp.zip https://github.com/xzhih/ONMP/archive/master.zip 
+# 下载一键脚本
+wget --no-check-certificate -O /opt/onmp.sh https://raw.githubusercontent.com/xynu617/ONMP/master/onmp.sh 
 
-# 解压
-unzip /opt/onmp.zip 
-cd /opt/ONMP-master 
+# 打开opt文件夹
+cd /opt 
 
 # 设置权限
 chmod +x ./onmp.sh 
