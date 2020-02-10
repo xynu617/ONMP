@@ -428,7 +428,7 @@ OOO
 init_sql()
 {
     get_env
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     sleep 10
     killall mysqld > /dev/null 2>&1
     rm -rf /opt/mysql
@@ -488,7 +488,7 @@ echo -e "\n正在初始化数据库，请稍等1分钟"
 sleep 20
 
 # 初次启动MySQL
-/opt/etc/init.d/S70mysqld start
+/opt/etc/init.d/S70mariadbd start
 sleep 60
 
 # 设置数据库密码
@@ -542,7 +542,7 @@ PHPFPM
 ############# 用户设置数据库密码 ############
 set_passwd()
 {
-    /opt/etc/init.d/S70mysqld start
+    /opt/etc/init.d/S70mariadbd start
     sleep 3
     echo -e "\033[41;37m 初始密码：123456 \033[0m"
     mysqladmin -u root -p password
@@ -552,7 +552,7 @@ set_passwd()
 ################ 卸载onmp ###############
 remove_onmp()
 {
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     /opt/etc/init.d/S70redis stop > /dev/null 2>&1
@@ -606,12 +606,12 @@ vhost_list()
 
 onmp_restart()
 {
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     killall -9 nginx mysqld php-fpm > /dev/null 2>&1
     sleep 3
-    /opt/etc/init.d/S70mysqld start > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd start > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm start > /dev/null 2>&1
     /opt/etc/init.d/S80nginx start > /dev/null 2>&1
     sleep 3
@@ -649,7 +649,7 @@ case $1 in
     stop )
     echo "onmp正在停止"
     logger -t "【ONMP】" "正在停止"
-    /opt/etc/init.d/S70mysqld stop > /dev/null 2>&1
+    /opt/etc/init.d/S70mariadbd stop > /dev/null 2>&1
     /opt/etc/init.d/S79php7-fpm stop > /dev/null 2>&1
     /opt/etc/init.d/S80nginx stop > /dev/null 2>&1
     echo "onmp已停止"
@@ -664,9 +664,9 @@ case $1 in
 
     mysql )
     case $2 in
-        start ) /opt/etc/init.d/S70mysqld start;;
-        stop ) /opt/etc/init.d/S70mysqld stop;;
-        restart ) /opt/etc/init.d/S70mysqld restart;;
+        start ) /opt/etc/init.d/S70mariadbd start;;
+        stop ) /opt/etc/init.d/S70mariadbd stop;;
+        restart ) /opt/etc/init.d/S70mariadbd restart;;
         * ) echo "onmp mysqld start|restart|stop";;
     esac
     ;;
