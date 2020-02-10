@@ -36,6 +36,9 @@ INST_URL="http://bin.entware.net/mipselsf-k3.4/installer/generic.sh"
 x86_64)
 INST_URL="http://bin.entware.net/x64-k3.2/installer/generic.sh"
 ;;
+i686)
+INST_URL="http://bin.entware.net/x86-k2.6/installer/generic.sh"
+;;
 *)
 echo "不好意思，你的平台似乎无法安装 Entware"
 exit 1
