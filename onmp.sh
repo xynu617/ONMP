@@ -454,7 +454,7 @@ tmpdir             = /opt/tmp/
 
 skip-external-locking
 
-bind-address       = 0.0.0.0
+bind-address       = 127.0.0.1
 
 key_buffer_size    = 24M
 max_allowed_packet = 24M
