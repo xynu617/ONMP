@@ -20,7 +20,7 @@ url_phpMyAdmin="https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-a
 url_WordPress="https://cn.wordpress.org/wordpress-4.9.4-zh_CN.zip"
 
 # (3) Owncloud（经典的私有云）
-url_Owncloud="https://download.owncloud.org/community/owncloud-10.0.10.zip"
+url_Owncloud="https://download.owncloud.org/community/owncloud-10.3.2.zip"
 
 # (4) Nextcloud（Owncloud团队的新作，美观强大的个人云盘）
 url_Nextcloud="https://download.nextcloud.com/server/releases/nextcloud-13.0.6.zip"
@@ -32,7 +32,7 @@ url_h5ai="https://release.larsjung.de/h5ai/h5ai-0.29.0.zip"
 url_Lychee="https://github.com/electerious/Lychee/archive/master.zip"
 
 # (7) Kodexplorer（可道云aka芒果云在线文档管理器）
-url_Kodexplorer="http://static.kodcloud.com/update/download/kodexplorer4.36.zip"
+url_Kodexplorer="http://static.kodcloud.com/update/download/kodexplorer4.40.zip"
 
 # (8) Typecho (流畅的轻量级开源博客程序)
 url_Typecho="http://typecho.org/downloads/1.1-17.10.30-release.tar.gz"
